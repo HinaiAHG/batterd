@@ -13,11 +13,11 @@ window.BATTERD_CONFIG = {
   // The five partners, with equity share. Each partner logs in as themselves.
   // equity is used for the fair-share / settle-up math.
   PARTNERS: [
-    { id: "azzan",    name: "Azzan",    equity: 0.22, color: "#e0245e" },
-    { id: "ahmed",    name: "Ahmed",    equity: 0.22, color: "#4a90d9" },
-    { id: "abdullah", name: "Abdullah", equity: 0.22, color: "#2a9d8f", role: "Tech & Platforms" },
-    { id: "saud",     name: "Saud",     equity: 0.22, color: "#d99a3c" },
-    { id: "munther",  name: "Munther",  equity: 0.12, color: "#7a5ea8" },
+    { id: "azzan",    name: "Azzan",    equity: 0.22, color: "#c0392b" }, // chili red
+    { id: "ahmed",    name: "Ahmed",    equity: 0.22, color: "#5b6ec9" }, // indigo tint (legible on charcoal + cream)
+    { id: "abdullah", name: "Abdullah", equity: 0.22, color: "#2e8b74" }, // teal
+    { id: "saud",     name: "Saud",     equity: 0.22, color: "#e5a823" }, // mustard gold (brand)
+    { id: "munther",  name: "Munther",  equity: 0.12, color: "#7d5ba6" }, // plum
   ],
 
   // Expense categories (money already spent by a partner).

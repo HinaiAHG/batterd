@@ -484,7 +484,7 @@
   // ============================================================
   //  DASHBOARD
   // ============================================================
-  const PALETTE = ["#e0245e", "#4a90d9", "#2a9d8f", "#d99a3c", "#7a5ea8", "#3fae9c", "#c77d3a", "#8a9a3b", "#5d7a8c", "#d16b54", "#9b59b6"];
+  const PALETTE = ["#d9531e", "#e5a823", "#5b6ec9", "#2e8b74", "#c0392b", "#7d5ba6", "#e08a1e", "#3fae9c", "#a0632c", "#8a6d3b"];
   function donutSVG(segments, centerTop) {
     const total = segments.reduce((s, x) => s + x.value, 0) || 1;
     const r = 62, C = 2 * Math.PI * r, cx = 85, cy = 85, sw = 32; let acc = 0, arcs = "";

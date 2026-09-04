@@ -6,15 +6,18 @@
   <title>BATTERD — Partner Ledger</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Lilita+One&family=Fredoka:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
   <!-- Who are you? -->
   <div id="who-screen" class="who-screen hidden">
     <div class="who-card">
-      <div class="who-logo">🍗</div>
-      <h1 id="who-biz-name">BATTERD</h1>
+      <div class="brand-lockup">
+        <div class="wordmark" id="who-biz-name">BATTERD</div>
+        <div class="wordmark-ar">باترد</div>
+      </div>
+      <p class="tagline">American crunch. Omani soul.</p>
       <p class="who-sub">Who are you?</p>
       <div id="who-buttons" class="who-buttons"></div>
     </div>
@@ -25,9 +28,9 @@
     <header class="app-header">
       <div class="header-inner">
         <div class="brand">
-          <span class="brand-logo">🍗</span>
+          <div class="brand-mark">B</div>
           <div>
-            <h1 id="biz-name">BATTERD</h1>
+            <h1 id="biz-name" class="wordmark-sm">BATTERD</h1>
             <span class="brand-sub">Partner ledger &amp; purchases</span>
           </div>
         </div>
@@ -220,7 +223,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="config.js?v=1"></script>
-  <script src="app.js?v=1"></script>
+  <script src="config.js?v=5"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
