@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BATTERD — Partner Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <!-- Who are you? -->
+  <div id="who-screen" class="who-screen hidden">
+    <div class="who-card">
+      <div class="who-logo">🍗</div>
+      <h1 id="who-biz-name">BATTERD</h1>
+      <p class="who-sub">Who are you?</p>
+      <div id="who-buttons" class="who-buttons"></div>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div id="app" class="app hidden">
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-logo">🍗</span>
+          <div>
+            <h1 id="biz-name">BATTERD</h1>
+            <span class="brand-sub">Partner ledger &amp; purchases</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="who-pill" class="who-pill" title="Switch user"></button>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button class="tab active" data-view="expenses">💸 Expenses</button>
+        <button class="tab" data-view="purchases">📦 Purchases</button>
+        <button class="tab" data-view="dashboard">📊 Dashboard</button>
+      </nav>
+    </header>
+
+    <!-- ============ EXPENSES VIEW ============ -->
+    <main class="container view" id="view-expenses">
+      <section class="totals" id="totals"></section>
+
+      <section class="settle" id="settle"></section>
+
+      <button id="add-expense-btn" class="add-btn">＋ Add expense</button>
+
+      <section class="filters">
+        <div class="filter-group" id="filter-category"></div>
+      </section>
+
+      <section id="expenses-list" class="receipts-list"></section>
+      <div id="expenses-empty" class="empty-state hidden">
+        <div class="empty-emoji">🧾</div>
+        <p>No expenses yet. Tap “Add expense” to start.</p>
+      </div>
+    </main>
+
+    <!-- ============ PURCHASES VIEW ============ -->
+    <main class="container view hidden" id="view-purchases">
+      <section class="totals" id="purchase-totals"></section>
+      <button id="add-purchase-btn" class="add-btn">＋ Add purchase</button>
+      <section class="filters">
+        <div class="filter-group" id="filter-status"></div>
+      </section>
+      <section id="purchases-list" class="purchases-list"></section>
+      <div id="purchases-empty" class="empty-state hidden">
+        <div class="empty-emoji">📦</div>
+        <p>No purchases tracked yet. Tap “Add purchase”.</p>
+      </div>
+    </main>
+
+    <!-- ============ DASHBOARD VIEW ============ -->
+    <main class="container view hidden" id="view-dashboard">
+      <div id="dash-body" class="dash-body"></div>
+    </main>
+
+    <div id="loading-state" class="loading-state">Loading…</div>
+  </div>
+
+  <!-- Add / edit EXPENSE -->
+  <div id="expense-modal" class="modal hidden">
+    <div class="modal-backdrop" data-close-exp></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>New expense</h2>
+        <button class="icon-btn" data-close-exp>✕</button>
+      </div>
+      <form id="expense-form" class="form">
+        <div class="field">
+          <label class="upload-zone" for="e-photo">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text">Snap or upload the receipt</span>
+            <span class="upload-sub">AI reads it and fills the fields</span>
+          </label>
+          <input id="e-photo" type="file" accept="image/*" class="hidden-file" />
+          <div id="e-photo-preview" class="photo-preview hidden">
+            <img id="e-photo-preview-img" alt="preview" />
+          </div>
+          <div id="e-analyze-status" class="analyze-status hidden"></div>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Amount (OMR)</span>
+            <input id="e-amount" type="number" inputmode="decimal" step="0.001" placeholder="0.000" required />
+          </label>
+          <label class="field">
+            <span>Date</span>
+            <input id="e-date" type="date" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Category</span>
+          <select id="e-category" required></select>
+        </label>
+
+        <label class="field">
+          <span>Paid by</span>
+          <select id="e-partner" required></select>
+        </label>
+
+        <label class="field">
+          <span>Description</span>
+          <input id="e-desc" type="text" placeholder="e.g. Store down payment" />
+        </label>
+
+        <label class="field">
+          <span>Reference / notes (optional)</span>
+          <input id="e-note" type="text" placeholder="Invoice no., supplier, etc." />
+        </label>
+
+        <label class="check-row">
+          <input id="e-reimbursed" type="checkbox" />
+          <span>Already reimbursed / settled</span>
+        </label>
+
+        <div id="expense-error" class="form-error hidden"></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" data-close-exp>Cancel</button>
+          <button type="submit" id="expense-submit" class="btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / edit PURCHASE -->
+  <div id="purchase-modal" class="modal hidden">
+    <div class="modal-backdrop" data-close-pur></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>New purchase</h2>
+        <button class="icon-btn" data-close-pur>✕</button>
+      </div>
+      <form id="purchase-form" class="form">
+        <label class="field">
+          <span>Item</span>
+          <input id="p-item" type="text" placeholder="e.g. Twin-vat gas fryer" required />
+        </label>
+        <div class="row">
+          <label class="field">
+            <span>Category</span>
+            <select id="p-category" required></select>
+          </label>
+          <label class="field">
+            <span>Status</span>
+            <select id="p-status" required></select>
+          </label>
+        </div>
+        <label class="field">
+          <span>Supplier</span>
+          <input id="p-supplier" type="text" placeholder="e.g. Al Rayan Hotel Supplies" />
+        </label>
+        <div class="row">
+          <label class="field">
+            <span>Quantity</span>
+            <input id="p-qty" type="number" inputmode="decimal" step="any" placeholder="1" />
+          </label>
+          <label class="field">
+            <span>Unit cost (OMR)</span>
+            <input id="p-unit" type="number" inputmode="decimal" step="0.001" placeholder="0.000" />
+          </label>
+        </div>
+        <div class="row">
+          <label class="field">
+            <span>Order date</span>
+            <input id="p-order-date" type="date" />
+          </label>
+          <label class="field">
+            <span>Delivery date</span>
+            <input id="p-delivery-date" type="date" />
+          </label>
+        </div>
+        <label class="field">
+          <span>Notes (optional)</span>
+          <input id="p-note" type="text" placeholder="Lead time, priority, etc." />
+        </label>
+        <div id="purchase-error" class="form-error hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" data-del-pur style="display:none">Delete</button>
+          <button type="button" class="btn-ghost" data-close-pur>Cancel</button>
+          <button type="submit" id="purchase-submit" class="btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <div class="lightbox-backdrop" data-lb-close></div>
+    <img id="lightbox-img" alt="receipt" />
+    <button class="lightbox-close" data-lb-close>✕</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js?v=1"></script>
+  <script src="app.js?v=1"></script>
+</body>
+</html>

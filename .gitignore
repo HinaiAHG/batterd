@@ -1,0 +1,25 @@
+# Keep private financial data & local tooling OUT of the public repo.
+# The actual receipts live in Supabase, never on GitHub.
+seed.sql
+deploy-function.sh
+
+# Secrets / env
+.env
+.env.*
+*.pem
+*.key
+
+# Uploads & source documents (may contain financial data)
+*.pdf
+uploads/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Local data backups (financial data — keep OUT of the public repo)
+backup/
+
+# Supabase CLI temp
+supabase/.temp/
+.supabase-db-password.txt

@@ -1,0 +1,25 @@
+name: keepalive
+
+# Pings Battered's Supabase project every 2 days so the free tier never
+# auto-pauses. Uses the PUBLIC publishable key (already shipped in config.js).
+
+on:
+  schedule:
+    - cron: "41 6 */2 * *"   # 06:41 UTC, every 2nd day
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST + Storage
+        run: |
+          BASE="https://xwsjodofzisczpjvuerv.supabase.co"
+          KEY="sb_publishable_w7aLVIageQlHH-IOJbS40w_K4nh-mCD"
+          echo "REST:    $(curl -s -o /dev/null -w '%{http_code}' \
+            "$BASE/rest/v1/expenses?select=id&limit=1" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY")"
+          echo "Storage: $(curl -s -o /dev/null -w '%{http_code}' \
+            "$BASE/storage/v1/object/list/receipts" -X POST \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            -H "Content-Type: application/json" -d '{"limit":1}')"
