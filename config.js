@@ -27,6 +27,7 @@ window.BATTERD_CONFIG = {
     { id: "fitout",      name: "Fit-out" },
     { id: "equipment",   name: "Equipment" },
     { id: "ingredients", name: "Ingredients" },
+    { id: "tasting",     name: "Tasting" },
     { id: "packaging",   name: "Packaging" },
     { id: "tech",        name: "Tech" },
     { id: "marketing",   name: "Marketing" },
